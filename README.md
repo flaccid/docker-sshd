@@ -18,7 +18,7 @@ Typically:
 
 There should be a reasonable amount of flexibility using the available variables. If not please raise an issue so your use case can be covered!
 
-- `SSH_PUBLIC_KEY` - The SSH public key to place in `/root/.ssh/authorized_keys` for access tot he server
+- `SSH_PUBLIC_KEY` - The SSH public key to place in `/root/.ssh/authorized_keys` for access to the server
 
 ### Tag and Push
 
