@@ -1,0 +1,12 @@
+FROM gliderlabs/alpine
+
+MAINTAINER Chris Fordham <chris@fordham-nagy.id.au>
+
+# https://github.com/mitchellh/vagrant/tree/master/keys
+# because why not.
+ENV SSH_PUBLIC_KEY ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key
+
+RUN apk --update add openssh
+RUN mkdir /root/.ssh
+
+CMD echo "$SSH_PUBLIC_KEY" > /root/.ssh/authorized_keys && ssh-keygen -A && /usr/sbin/sshd -D
