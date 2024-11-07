@@ -16,10 +16,19 @@ docker-release:: docker-build docker-push ## Builds and pushes the docker image 
 docker-push:: ## Pushes the docker image to the registry
 		@docker push $(IMAGE_TAG)
 
+docker-push-ubuntu:: ## Pushes the docker image to the registry (ubuntu version)
+		@docker push $(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu
+
 docker-build:: ## builds the docker image locally
 		@docker build  \
 			--pull \
 			-t $(IMAGE_TAG) \
+				$(WORKING_DIR)
+
+docker-build-ubuntu:: ## builds the docker image locally (ubuntu version)
+		@docker build  \
+			--pull \
+			-t $(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu \
 				$(WORKING_DIR)
 
 docker-build-clean:: ## cleanly builds the docker image locally
@@ -34,6 +43,13 @@ docker-run:: ## Runs the docker image
 			--name sshd \
 			-itd \
 				$(IMAGE_TAG)
+
+docker-run-ubuntu:: ## Runs the docker image (ubuntu version)
+		docker run \
+			--name sshd \
+			--rm \
+			-itd \
+				$(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu
 
 docker-exec-shell:: ## Executes a shell in running container
 		@docker exec \
