@@ -28,6 +28,15 @@ docker-build:: ## builds the docker image locally
 docker-build-ubuntu:: ## builds the docker image locally (ubuntu version)
 		@docker build  \
 			--pull \
+			-f Dockerfile.ubuntu \
+			-t $(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu \
+				$(WORKING_DIR)
+
+docker-build-ubuntu-clean:: ## builds the docker image locally (ubuntu version, clean)
+		@docker build  \
+			--no-cache \
+			--pull \
+			-f Dockerfile.ubuntu \
 			-t $(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu \
 				$(WORKING_DIR)
 
@@ -48,6 +57,13 @@ docker-run-ubuntu:: ## Runs the docker image (ubuntu version)
 		docker run \
 			--name sshd \
 			--rm \
+			-it \
+				$(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu
+
+docker-run-ubuntu-detached:: ## Runs the docker image (ubuntu version, detached)
+		docker run \
+			--name sshd \
+			--rm \
 			-itd \
 				$(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu
 
@@ -64,6 +80,12 @@ docker-run-shell:: ## Runs the docker image with bash as entrypoint
 
 docker-rm:: ## Removes the running docker container
 		@docker rm -f sshd
+
+docker-rmi:: ## Removes the container image
+		@docker rmi -f $(IMAGE_TAG)
+
+docker-rmi-ubuntu:: ## Removes the container image (ubuntu version)
+		@docker rmi -f $(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu
 
 docker-test:: ## tests the runtime of the docker image in a basic sense
 		@docker run $(IMAGE_TAG) sshd --version

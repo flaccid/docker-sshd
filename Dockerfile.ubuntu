@@ -8,6 +8,6 @@ RUN apt-get update && \
     apt-get -y install \
 	bash \
 	openssh-server && \
-	mkdir /root/.ssh
+	mkdir /run/sshd /root/.ssh
 ENTRYPOINT ["/usr/local/bin/container-entrypoint.sh"]
 CMD ["/usr/sbin/sshd", "-D"]
