@@ -18,6 +18,8 @@ docker-push:: ## Pushes the docker image to the registry
 
 docker-push-ubuntu:: ## Pushes the docker image to the registry (ubuntu version)
 		@docker push $(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu
+		@docker tag $(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu $(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu-22.04
+		@docker push $(DOCKER_REGISTRY)/$(IMAGE_ORG)/$(IMAGE_NAME):ubuntu-22.04
 
 docker-build:: ## builds the docker image locally
 		@docker build  \

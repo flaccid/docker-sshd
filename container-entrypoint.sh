@@ -7,5 +7,8 @@ sed -i 's/AllowTcpForwarding no/AllowTcpForwarding yes/g' /etc/ssh/sshd_config
 
 ssh-keygen -A
 
+sed -i '/module(load="imklog/d' /etc/rsyslog.conf
+rsyslogd -n &
+
 echo "> $@"
 exec "$@"
