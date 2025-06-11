@@ -52,7 +52,11 @@ docker-build-clean:: ## cleanly builds the docker image locally
 docker-run:: ## Runs the docker image
 		docker run \
 			--name sshd \
-			-itd \
+			-it \
+			--rm \
+			-p 2222:22 \
+			-e SSH_USER=flaccid \
+			-e SSH_PUBLIC_KEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDgQz9uYuTgbe9PflQ2/ctB0xtaVScpHzmR2Fp8wmyEhTB0ACb1hC876lrXaMN6qvyPbXFQALeV9IL6ZAmxep9FiMoxJJIlZ3JeDFyRX9IOE9KU7E6UIgsC+9aEMkeuha6LpoT59q1vsdi0a8OhdQWFPohCAb0QKu7APCU/6Cs1jw== flaccid@lister.dev.xhost.net.au-2011-11-13' \
 				$(IMAGE_TAG)
 
 docker-run-ubuntu:: ## Runs the docker image (ubuntu version)
